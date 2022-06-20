@@ -35,7 +35,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         env:
-          transition_model_url: format("{0}api/2.0/mlflow/databricks/model-versions/transition-stage", $WORKSPACE_URL)
+          transition_model_url: ${{ format("{0}{1}", env.WORKSPACE_URL, "api/2.0/mlflow/databricks/model-versions/transition-stage") }}
         run: |
           curl -u token:$TOKEN -X POST $transition_model_url 
                  -H 'Content-Type: application/json'
