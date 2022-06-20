@@ -37,6 +37,6 @@ jobs:
         env:
           transition_model_url: ${{ format('{0}{1}', env.WORKSPACE_URL, 'api/2.0/mlflow/databricks/model-versions/transition-stage') }}
         run: |
-          curl -u token:$TOKEN -X POST $transition_model_url 
-                 -H 'Content-Type: application/json'
+          curl -u token:$TOKEN -X POST $transition_model_url \
+                 -H 'Content-Type: application/json' \
                  -d '{"archive_existing_versions": True, "name": $MODEL_NAME, "stage": $MODEL_STAGE, "version": $MODEL_VERSION }'
