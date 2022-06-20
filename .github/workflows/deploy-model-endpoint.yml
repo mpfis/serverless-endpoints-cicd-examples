@@ -36,7 +36,8 @@ jobs:
       - name: Run a multi-line script
         env:
           transition_model_url: ${{ format('{0}{1}', env.WORKSPACE_URL, 'api/2.0/mlflow/databricks/model-versions/transition-stage') }}
+          request_body: ${{ fromJSON( format('{"archive_existing_versions": True, "name": {0}, "stage": {1}, "version": {2} }', env.MODEL_NAME, env.MODEL_STAGE, env.MODEL_VERSION) ) }}
         run: |
           curl -u token:$TOKEN -X POST $transition_model_url \
                  -H 'Content-Type: application/json' \
-                 -d '{"archive_existing_versions": True, "name": $MODEL_NAME, "stage": $MODEL_STAGE, "version": $MODEL_VERSION }'
+                 -d $request_body
